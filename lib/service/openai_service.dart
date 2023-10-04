@@ -32,17 +32,17 @@ class OpenAIService {
       if (response.statusCode == 201) {
         String text = await response.stream.bytesToString();
         final feedback = jsonDecode(text);
-
         return OpenAIModel.fromJson(feedback);
       } else {
         String text = await response.stream.bytesToString();
         final feedback = jsonDecode(text);
-
-        return OpenAIModel(error: feedback['error'], message: "");
+        return OpenAIModel.fromJson(feedback);
       }
     } catch (error) {
-      // log(error.toString());
-      return OpenAIModel(error: error.toString(), message: "");
+      return OpenAIModel(
+        error: error.toString(),
+        message: null,
+      );
     }
   }
 
@@ -53,8 +53,7 @@ class OpenAIService {
     required String userInput,
     required String cookie,
   }) async {
-    String endpoint =
-        "https://spitfire-interractions.onrender.com/api/chat/completions";
+    String endpoint = "https://spitfire-interractions.onrender.com/api/chat/completions";
 
     Map<String, String> headers = {
       "accept": "application/json",
@@ -82,12 +81,13 @@ class OpenAIService {
       } else {
         String text = await response.stream.bytesToString();
         final feedback = jsonDecode(text);
-
-        return OpenAIModel(error: feedback['error'], message: "");
+        return OpenAIModel.fromJson(feedback);
       }
     } catch (error) {
-      // log(error.toString());
-      return OpenAIModel(error: error.toString(), message: "");
+      return OpenAIModel(
+        error: error.toString(),
+        message: null,
+      );
     }
   }
 }

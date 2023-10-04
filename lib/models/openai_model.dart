@@ -1,11 +1,14 @@
 class OpenAIModel {
-  final String error;
-  final String message;
+  final String? error;
+  final String? message;
 
-  OpenAIModel({required this.error, required this.message});
+  OpenAIModel({
+    this.error,
+    this.message,
+  });
 
   OpenAIModel.fromJson(Map<String, dynamic> json)
-      : error = json["error"] ?? "",
+      : error = json["error"],
         message = json["message"];
 
   Map<String, dynamic> toJson() => {

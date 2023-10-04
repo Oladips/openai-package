@@ -6,7 +6,7 @@ class OpenAIRepository implements OpenAI {
   /// Send Chat Request as String to the server
   /// Either Returns either [message] or [error] within OpenAIModel object returned
   @override
-  Future<String> getChat(
+  Future getChat(
     String userInput,
     String cookie,
   ) async {
@@ -15,17 +15,13 @@ class OpenAIRepository implements OpenAI {
       cookie: cookie,
     );
 
-    if (result.error.isEmpty) {
-      return "Message: ${result.message}";
-    } else {
-      return "Error: ${result.error}";
-    }
+    return result.toJson();
   }
 
   /// Send Chat Request as String and List of historys to the server
   /// Either Returns either [message] or [error] within OpenAIModel object returned
   @override
-  Future<String> getChatCompletions(
+  Future getChatCompletions(
     List<String> history,
     String userInput,
     String cookie,
@@ -36,17 +32,12 @@ class OpenAIRepository implements OpenAI {
       cookie: cookie,
     );
 
-    if (result.error.isEmpty) {
-      return "Message: ${result.message}";
-    } else {
-      return "Error: ${result.error}";
-    }
+    return result.toJson();
   }
 }
 
 abstract class OpenAI {
-  Future<String> getChat(String userInput, String cookie);
+  Future getChat(String userInput, String cookie);
 
-  Future<String> getChatCompletions(
-      List<String> history, String userInput, String cookie);
+  Future getChatCompletions(List<String> history, String userInput, String cookie);
 }
