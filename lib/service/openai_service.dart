@@ -81,12 +81,16 @@ class OpenAIService {
       } else {
         String text = await response.stream.bytesToString();
         final feedback = jsonDecode(text);
-        return OpenAIModel.fromJson(feedback);
+        var model = OpenAIModel.fromJson(feedback);
+        if (feedback["content"] != null) {
+          model.message = feedback["content"];
+        }
+        return model;
       }
     } catch (error) {
       return OpenAIModel(
         error: error.toString(),
-        message: null,
+        message: error.toString(),
       );
     }
   }

@@ -1,6 +1,6 @@
 class OpenAIModel {
-  final String? error;
-  final String? message;
+  String? error;
+  String? message;
 
   OpenAIModel({
     this.error,
