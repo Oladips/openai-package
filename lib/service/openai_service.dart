@@ -82,8 +82,9 @@ class OpenAIService {
         String text = await response.stream.bytesToString();
         final feedback = jsonDecode(text);
         var model = OpenAIModel.fromJson(feedback);
-        if (feedback["content"] != null) {
+        if (feedback["content"] != null && feedback["error"] == null) {
           model.message = feedback["content"];
+          model.error = feedback["content"];
         }
         return model;
       }
